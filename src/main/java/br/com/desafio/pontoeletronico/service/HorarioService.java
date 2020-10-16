@@ -17,7 +17,7 @@ public class HorarioService {
 
     public HorarioDTO salvar(HorarioDTO horarioDTO) {
         Horario ultimoHorario = this.horarioRepository.findTopByMatriculaAndDataOrderByIdDesc(horarioDTO.getMatricula(), horarioDTO.getData());
-        var validador = new ValidacaoHorario(ultimoHorario, horarioDTO.getHora(), horarioDTO.getData());
+        var validador = new ValidacaoHorario(ultimoHorario, horarioDTO.getHora(), horarioDTO.getData(), horarioDTO.getTipoHorarioEnum());
 
         validador.validar();
 
