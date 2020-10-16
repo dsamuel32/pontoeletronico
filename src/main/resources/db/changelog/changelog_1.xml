@@ -1,0 +1,36 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.7"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.7
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.7.xsd">
+
+    <changeSet id="1.1" author="diego">
+        <createTable schemaName="pontoeletronico" tableName="horario">
+            <column name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="matricula" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="hora" type="varchar(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="data" type="date">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="tipo" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+
+
+        </createTable>
+
+        <addAutoIncrement columnDataType="bigint"
+                          columnName="id"
+                          schemaName="pontoeletronico"
+                          tableName="horario"/>
+
+    </changeSet>
+
+</databaseChangeLog>
