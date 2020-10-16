@@ -33,4 +33,31 @@
 
     </changeSet>
 
+    <changeSet id="1.2" author="diego">
+        <createTable schemaName="pontoeletronico" tableName="alocacao_hora">
+            <column name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="matricula" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="total_horas" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="data" type="date">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="codigo_projeto" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addAutoIncrement columnDataType="bigint"
+                          columnName="id"
+                          schemaName="pontoeletronico"
+                          tableName="alocacao_hora"/>
+
+    </changeSet>
+
 </databaseChangeLog>

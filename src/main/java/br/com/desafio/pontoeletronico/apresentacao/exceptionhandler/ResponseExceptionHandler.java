@@ -1,4 +1,4 @@
-package br.com.desafio.pontoeletronico.controller.exceptionhandler;
+package br.com.desafio.pontoeletronico.apresentacao.exceptionhandler;
 
 import br.com.desafio.pontoeletronico.dominio.dto.DetalheErroDTO;
 import br.com.desafio.pontoeletronico.negocio.exceptions.ValidacaoNegocioException;
