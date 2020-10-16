@@ -56,7 +56,7 @@ public final class ValidacaoHorario {
     }
 
     private Boolean isTipoHorarioNaoPermitido() {
-        return this.isHorarioNaoNulo() && this.mapaOrdemBatidasPermitidas.get(tipoHorarioEnum).equals(horario.getTipoHorarioEnum());
+        return this.isHorarioNaoNulo() && !this.mapaOrdemBatidasPermitidas.get(tipoHorarioEnum).equals(horario.getTipoHorarioEnum());
     }
 
     private Boolean isHorarioNaoNulo() {
