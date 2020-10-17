@@ -13,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -32,7 +33,7 @@ class AlocacaoHoraServiceTest {
     @Test
     @DisplayName("Deve retornar alocacao hora")
     void deveRetornarAlocacaoHora() {
-        doReturn(0).when(this.alocacaoHoraRepository).recuperarTotalAlocado(anyLong(), any(LocalDate.class));
+        doReturn(Optional.of(0)).when(this.alocacaoHoraRepository).recuperarTotalAlocado(anyLong(), any(LocalDate.class));
         doReturn(criarAlocacaoHora()).when(this.alocacaoHoraRepository).save(any(AlocacaoHora.class));
         doReturn(7200L).when(this.horarioService).calcularTotalTrabalhado(anyLong(), any(LocalDate.class));
         var alocacaoService = new AlocacaoHoraService(alocacaoHoraRepository, horarioService);
@@ -45,7 +46,7 @@ class AlocacaoHoraServiceTest {
     @Test
     @DisplayName("Deve lancar ValidacaoNegocioException quando tempo alocacao ultrapassar total trabalhado")
     void deveLancarValidacaoNegocioExceptionQuandoTempoAlocacaoUltrapassarTotalTrabalhado() {
-        doReturn(0).when(this.alocacaoHoraRepository).recuperarTotalAlocado(anyLong(), any(LocalDate.class));
+        doReturn(Optional.of(1)).when(this.alocacaoHoraRepository).recuperarTotalAlocado(anyLong(), any(LocalDate.class));
         doReturn(7200L).when(this.horarioService).calcularTotalTrabalhado(anyLong(), any(LocalDate.class));
         var alocacaoService = new AlocacaoHoraService(alocacaoHoraRepository, horarioService);
         assertThrows(ValidacaoNegocioException.class, () -> alocacaoService.alocar(new AlocacaoHoraDTO(1L, 1L, "03:50", LocalDate.now())));

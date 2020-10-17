@@ -1,7 +1,6 @@
 package br.com.desafio.pontoeletronico.service;
 
 import br.com.desafio.pontoeletronico.dominio.dto.AlocacaoHoraDTO;
-import br.com.desafio.pontoeletronico.dominio.dto.TotalAlocacaoDTO;
 import br.com.desafio.pontoeletronico.dominio.entidade.AlocacaoHora;
 import br.com.desafio.pontoeletronico.negocio.ValidacaoAlocacaoHora;
 import br.com.desafio.pontoeletronico.negocio.utils.HoraUtil;
