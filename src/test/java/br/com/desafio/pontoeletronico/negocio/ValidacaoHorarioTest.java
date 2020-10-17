@@ -52,8 +52,8 @@ class ValidacaoHorarioTest {
     @Test
     @DisplayName("Deve retornar ValidacaoNegocioException quando data informada pertence ao fim de semana")
     void deveRetornarValidacaoNegocioExceptionQuandoDataInformadaPertenceaAoFimSemana() {
-        var validacao = new ValidacaoHorario(new Horario(1L,"09:00", data, TipoHorarioEnum.ENTRADA),
-                                        "08:00", LocalDate.of(2020, 9, 17),
+        var validacao = new ValidacaoHorario(new Horario(1L,"08:00", data, TipoHorarioEnum.ENTRADA),
+                                        "12:00", LocalDate.of(2020, 10, 17),
                                              TipoHorarioEnum.SAIDA_ALMOCO);
         assertThrows(ValidacaoNegocioException.class, () -> validacao.validar());
     }

@@ -24,4 +24,11 @@ class HoraUtilTest {
         assertTrue(ok);
     }
 
+    @Test
+    @DisplayName("Deve retornar hora em segundos")
+    void deveRetornarHoraEmSegundos() {
+        var segundos = HoraUtil.converterSegundos("01:00");
+        assertEquals(3600L, segundos);
+    }
+
 }

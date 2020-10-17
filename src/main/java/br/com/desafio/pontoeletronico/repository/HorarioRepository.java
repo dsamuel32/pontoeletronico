@@ -8,15 +8,18 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface HorarioRepository extends JpaRepository<Horario, Long> {
 
     @Query("SELECT h FROM Horario h WHERE h.matricula = :matricula AND h.data = :data ORDER BY h.id DESC")
-    public Horario recuperarUltimoHorario(@Param("matricula") Long matricula,
+    Horario recuperarUltimoHorario(@Param("matricula") Long matricula,
                                           @Param("data") LocalDate data);
 
-    public Horario findTopByMatriculaAndDataOrderByIdDesc(Long matricula, LocalDate data);
+    Horario findTopByMatriculaAndDataOrderByIdDesc(Long matricula, LocalDate data);
+
+    List<Horario> findByMatriculaAndDataOrderByIdDesc(Long matricula, LocalDate data);
 
 }

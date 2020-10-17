@@ -52,7 +52,7 @@ public class HorarioController {
 
     @ApiOperation( value = "Edita um horário de trabalho")
     @ApiResponses( value = {
-            @ApiResponse(code = 201, message = "Retorna o horário salvo"),
+            @ApiResponse(code = 201, message = "Retorna o horário atualizado"),
             @ApiResponse(code = 400, message = "Requisição Inválida"),
             @ApiResponse(code = 500, message = "Foi gerada uma exceção inesperada")
     })

@@ -13,8 +13,8 @@ public class AlocacaoHora {
     private Long id;
     @Column(name = "matricula")
     private Long matricula;
-    @Column(name = "total_horas")
-    private Long totalHoras;
+    @Column(name = "total_segundos")
+    private Long totalSegundos;
     @Column(name = "data")
     private LocalDate data;
     @Column(name = "codigo_projeto")
@@ -22,9 +22,17 @@ public class AlocacaoHora {
 
     public AlocacaoHora() { }
 
-    public AlocacaoHora(Long matricula, Long totalHoras, LocalDate data, Long codigoProjeto) {
+    public AlocacaoHora(Long matricula, Long totalSegundos, LocalDate data, Long codigoProjeto) {
         this.matricula = matricula;
-        this.totalHoras = totalHoras;
+        this.totalSegundos = totalSegundos;
+        this.data = data;
+        this.codigoProjeto = codigoProjeto;
+    }
+
+    public AlocacaoHora(Long id, Long matricula, Long totalSegundos, LocalDate data, Long codigoProjeto) {
+        this.id = id;
+        this.matricula = matricula;
+        this.totalSegundos = totalSegundos;
         this.data = data;
         this.codigoProjeto = codigoProjeto;
     }
@@ -37,8 +45,8 @@ public class AlocacaoHora {
         return matricula;
     }
 
-    public Long getTotalHoras() {
-        return totalHoras;
+    public Long getTotalSegundos() {
+        return totalSegundos;
     }
 
     public LocalDate getData() {

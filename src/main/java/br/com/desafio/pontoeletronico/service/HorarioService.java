@@ -2,14 +2,18 @@ package br.com.desafio.pontoeletronico.service;
 
 import br.com.desafio.pontoeletronico.dominio.dto.HorarioDTO;
 import br.com.desafio.pontoeletronico.dominio.entidade.Horario;
+import br.com.desafio.pontoeletronico.negocio.CalculoHora;
 import br.com.desafio.pontoeletronico.negocio.ValidacaoHorario;
 import br.com.desafio.pontoeletronico.repository.HorarioRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @Service
 public class HorarioService {
 
-    private HorarioRepository horarioRepository;
+    private final HorarioRepository horarioRepository;
 
     public HorarioService(HorarioRepository horarioRepository) {
         this.horarioRepository = horarioRepository;
@@ -29,5 +33,11 @@ public class HorarioService {
     private HorarioDTO salvar(Horario horario) {
         horario = this.horarioRepository.save(horario);
         return new HorarioDTO(horario.getId(), horario.getMatricula(), horario.getHora(), horario.getData(), horario.getTipoHorarioEnum());
+    }
+
+    public Long calcularTotalTrabalhado(Long matricula, LocalDate data) {
+        List<Horario> horarios = this.horarioRepository.findByMatriculaAndDataOrderByIdDesc(matricula, data);
+        var calculoHora = new CalculoHora();
+        return calculoHora.calcular(horarios);
     }
 }

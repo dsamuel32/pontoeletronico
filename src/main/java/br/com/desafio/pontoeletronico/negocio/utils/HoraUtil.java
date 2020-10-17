@@ -1,12 +1,17 @@
 package br.com.desafio.pontoeletronico.negocio.utils;
 
-import java.time.LocalTime;
+import java.time.*;
 
 public final class HoraUtil {
 
     public static LocalTime converter(String hora) {
         var horaMinuto = hora.split(":");
         return LocalTime.of(converterParaInteger(horaMinuto[0]), converterParaInteger(horaMinuto[1]));
+    }
+
+    public static Long converterSegundos(String hora) {
+        var localTime = converter(hora);
+        return Long.valueOf(localTime.toSecondOfDay());
     }
 
     public static Boolean isHoraFinalMaiorHoraInicial(String horaInicial, String horaFinal) {
@@ -18,4 +23,11 @@ public final class HoraUtil {
     private static Integer converterParaInteger(String valor) {
         return Integer.valueOf(valor);
     }
+
+    public static String converterParaString(Long segundos) {
+        var horas = segundos / 3600;
+        var minutos = (segundos - horas * 3600) / 60;
+        return StringUtil.padEsquerdaZeros(String.valueOf(horas), 2) + ":" + StringUtil.padEsquerdaZeros(String.valueOf(minutos), 2);
+    }
+
 }
