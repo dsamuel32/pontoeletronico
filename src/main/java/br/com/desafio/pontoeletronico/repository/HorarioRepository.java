@@ -20,6 +20,6 @@ public interface HorarioRepository extends JpaRepository<Horario, Long> {
 
     Horario findTopByMatriculaAndDataOrderByIdDesc(Long matricula, LocalDate data);
 
-    List<Horario> findByMatriculaAndDataOrderByIdDesc(Long matricula, LocalDate data);
+    List<Horario> findByMatriculaAndDataOrderByIdAsc(Long matricula, LocalDate data);
 
 }

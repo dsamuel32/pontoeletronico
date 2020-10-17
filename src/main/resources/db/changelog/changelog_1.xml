@@ -41,7 +41,7 @@
             <column name="matricula" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="total_horas" type="bigint">
+            <column name="total_segundos" type="bigint">
                 <constraints nullable="false"/>
             </column>
             <column name="data" type="date">

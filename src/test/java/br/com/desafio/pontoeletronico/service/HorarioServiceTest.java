@@ -42,7 +42,7 @@ class HorarioServiceTest {
     @Test
     @DisplayName("Deve calcular o total trabalhado")
     void deveCalcularOTotalTrabalhado() {
-        doReturn(criarHorarios()).when(horarioRepository).findByMatriculaAndDataOrderByIdDesc(anyLong(), any(LocalDate.class));
+        doReturn(criarHorarios()).when(horarioRepository).findByMatriculaAndDataOrderByIdAsc(anyLong(), any(LocalDate.class));
         var horarioService = new HorarioService(horarioRepository);
         var totalTrabalhado = horarioService.calcularTotalTrabalhado(1L, LocalDate.now());
         assertEquals(14400L, totalTrabalhado);

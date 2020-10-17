@@ -36,7 +36,7 @@ public class HorarioService {
     }
 
     public Long calcularTotalTrabalhado(Long matricula, LocalDate data) {
-        List<Horario> horarios = this.horarioRepository.findByMatriculaAndDataOrderByIdDesc(matricula, data);
+        List<Horario> horarios = this.horarioRepository.findByMatriculaAndDataOrderByIdAsc(matricula, data);
         var calculoHora = new CalculoHora();
         return calculoHora.calcular(horarios);
     }

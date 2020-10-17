@@ -23,7 +23,7 @@ public class AlocacaoHoraService {
 
     public AlocacaoHoraDTO alocar(AlocacaoHoraDTO alocacaoHoraDTO) {
         var totalTrabalhado = this.horarioService.calcularTotalTrabalhado(alocacaoHoraDTO.getMatricula(), alocacaoHoraDTO.getData());
-        var totalAlocado = this.alocacaoHoraRepository.recuperarTotalAlocado(alocacaoHoraDTO.getMatricula(), alocacaoHoraDTO.getData());
+        var totalAlocado = this.alocacaoHoraRepository.recuperarTotalAlocado(alocacaoHoraDTO.getMatricula(), alocacaoHoraDTO.getData()).orElse(0);
         var tempoAlocado = HoraUtil.converterSegundos(alocacaoHoraDTO.getHoras());
         totalAlocado += tempoAlocado.intValue();
         var validacao = new ValidacaoAlocacaoHora(totalTrabalhado, totalAlocado.longValue());
