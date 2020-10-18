@@ -13,14 +13,14 @@ import java.util.Objects;
 
 public final class ValidacaoHorario {
 
-    private final Horario horario;
+    private final Horario horarioAnterior;
     private final String hora;
     private final LocalDate data;
     private final TipoHorarioEnum tipoHorarioEnum;
     private final Map<TipoHorarioEnum, TipoHorarioEnum> mapaOrdemBatidasPermitidas;
 
-    public ValidacaoHorario(Horario horario, String hora, LocalDate data, TipoHorarioEnum tipoHorarioEnum) {
-        this.horario = horario;
+    public ValidacaoHorario(Horario horarioAnterior, String hora, LocalDate data, TipoHorarioEnum tipoHorarioEnum) {
+        this.horarioAnterior = horarioAnterior;
         this.hora = hora;
         this.data = data;
         this.tipoHorarioEnum = tipoHorarioEnum;
@@ -37,7 +37,7 @@ public final class ValidacaoHorario {
 
     private void validarHoraInformada() {
         if (this.isHorarioNaoNulo()) {
-            var horaValida = HoraUtil.isHoraFinalMaiorHoraInicial(this.horario.getHora(), this.hora);
+            var horaValida = HoraUtil.isHoraFinalMaiorHoraInicial(this.horarioAnterior.getHora(), this.hora);
 
             if (!horaValida) {
                 throw new ValidacaoNegocioException("Hora informada é menor que a hora informada anteriror.");
@@ -47,7 +47,7 @@ public final class ValidacaoHorario {
 
     private void validarTipoHorarioPermitida() {
         var mensagem = "O tipo de horário informado não é permitido, pois não existe um horário do tipo ";
-        if (this.horario == null && this.tipoHorarioEnum != TipoHorarioEnum.ENTRADA) {
+        if (this.horarioAnterior == null && this.tipoHorarioEnum != TipoHorarioEnum.ENTRADA) {
             throw new ValidacaoNegocioException(mensagem + TipoHorarioEnum.ENTRADA.getDescricao());
         } else if (this.isTipoHorarioNaoPermitido()) {
             var tipoEntrada = this.mapaOrdemBatidasPermitidas.get(tipoHorarioEnum);
@@ -56,17 +56,17 @@ public final class ValidacaoHorario {
     }
 
     private Boolean isTipoHorarioNaoPermitido() {
-        return this.isHorarioNaoNulo() && !this.mapaOrdemBatidasPermitidas.get(tipoHorarioEnum).equals(horario.getTipoHorarioEnum());
+        return this.isHorarioNaoNulo() && !this.mapaOrdemBatidasPermitidas.get(tipoHorarioEnum).equals(horarioAnterior.getTipoHorarioEnum());
     }
 
     private Boolean isHorarioNaoNulo() {
-        return !Objects.isNull(this.horario);
+        return !Objects.isNull(this.horarioAnterior);
     }
 
     private void validarHoraAlmoco() {
-        if (this.isHorarioNaoNulo() && this.horario.getTipoHorarioEnum() == TipoHorarioEnum.SAIDA_ALMOCO) {
+        if (this.isHorarioNaoNulo() && this.horarioAnterior.getTipoHorarioEnum() == TipoHorarioEnum.SAIDA_ALMOCO) {
             var calculoHora = new CalculoHora();
-            calculoHora.calcularHorarioAlmocoSegundos(this.horario.getHora(), this.hora);
+            calculoHora.calcularHorarioAlmocoSegundos(this.horarioAnterior.getHora(), this.hora);
         }
     }
 

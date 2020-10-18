@@ -21,8 +21,8 @@ public class HorarioDTO {
         this.tipoHorarioEnum = tipoHorarioEnum;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Long getId() {
+        return id;
     }
 
     public Long getMatricula() {

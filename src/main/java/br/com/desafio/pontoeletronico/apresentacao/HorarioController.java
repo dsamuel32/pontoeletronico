@@ -66,6 +66,6 @@ public class HorarioController {
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
     public HorarioDTO editar(@RequestBody HorarioDTO horarioDTO) {
-        return this.horarioService.salvar(horarioDTO);
+        return this.horarioService.editar(horarioDTO);
     }
 }

@@ -33,6 +33,14 @@ public class Horario {
         this.tipoHorarioEnum = tipoHorarioEnum;
     }
 
+    public Horario(Long id, Long matricula, String hora, LocalDate data, TipoHorarioEnum tipoHorarioEnum) {
+        this.id = id;
+        this.matricula = matricula;
+        this.hora = hora;
+        this.data = data;
+        this.tipoHorarioEnum = tipoHorarioEnum;
+    }
+
     public Long getId() {
         return id;
     }
