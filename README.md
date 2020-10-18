@@ -8,6 +8,7 @@
 - Docker
 
 ## Instruções
+- Obs: Por não ser o foco cadastro de pessoas e projeto os campos "matricula" e "codigoProjeto" não são validados. Pode ser informado qualquer valor fictíco. 
 #### Criar o container do Postgresql
 - Acessar o diretório .docker e executar o comando abaixo
 ```
