@@ -30,6 +30,12 @@ public class HorarioController {
         this.horarioService = horarioService;
     }
 
+    @ApiOperation( value = "Calcula horas mensais trabalhadas com diferença positiva ou negativa.")
+    @ApiResponses( value = {
+            @ApiResponse(code = 201, message = "Retorna o horário salvo"),
+            @ApiResponse(code = 400, message = "Requisição Inválida"),
+            @ApiResponse(code = 500, message = "Foi gerada uma exceção inesperada")
+    })
     @GetMapping("{matricula}/banco-horas/{mes}/{ano}")
     @ResponseStatus(HttpStatus.OK)
     public BancoHoraDTO calcularBancoHoras(@PathVariable("matricula") Long matricula,
