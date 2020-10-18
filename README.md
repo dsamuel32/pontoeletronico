@@ -28,6 +28,10 @@ http://localhost:8080/pontoeletronico/swagger-ui.html
 ```
 
 ### Exemplo Funcionalidade Registrar Horário
+- URL
+```
+POST http://localhost:8080/pontoeletronico/v1/registro-horarios
+```
 - Registrar Entrada
 ```
 {
@@ -69,6 +73,10 @@ http://localhost:8080/pontoeletronico/swagger-ui.html
 ```
 
 ### Exemplo Funcionalidade Alocar Hora
+- URL
+```
+POST http://localhost:8080/pontoeletronico/v1/alocacao-horas
+```
 - Alocar Hora
 ```
 {
@@ -78,3 +86,10 @@ http://localhost:8080/pontoeletronico/swagger-ui.html
 	"data": "2020-10-15"
 }
 ```
+
+### Exemplo Funcionalidade Calculo Horas
+- Alocar Hora
+```
+GET http://localhost:8080/pontoeletronico/v1/registro-horarios/1/banco-horas/10/2020
+```
+

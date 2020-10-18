@@ -25,9 +25,16 @@ class HoraUtilTest {
     }
 
     @Test
-    @DisplayName("Deve retornar hora em segundos")
-    void deveRetornarHoraEmSegundos() {
+    @DisplayName("Deve retornar hora em segundos quando informado hora em String")
+    void deveRetornarHoraEmSegundosString() {
         var segundos = HoraUtil.converterSegundos("01:00");
+        assertEquals(3600L, segundos);
+    }
+
+    @Test
+    @DisplayName("Deve retornar hora em segundos quando informado hora em Integer")
+    void deveRetornarHoraEmSegundosInteger() {
+        var segundos = HoraUtil.converterSegundos(1);
         assertEquals(3600L, segundos);
     }
 

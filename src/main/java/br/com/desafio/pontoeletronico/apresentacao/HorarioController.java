@@ -1,5 +1,6 @@
 package br.com.desafio.pontoeletronico.apresentacao;
 
+import br.com.desafio.pontoeletronico.dominio.dto.BancoHoraDTO;
 import br.com.desafio.pontoeletronico.dominio.dto.HorarioDTO;
 import br.com.desafio.pontoeletronico.service.HorarioService;
 import io.swagger.annotations.Api;
@@ -29,12 +30,12 @@ public class HorarioController {
         this.horarioService = horarioService;
     }
 
-    @GetMapping
+    @GetMapping("{matricula}/banco-horas/{mes}/{ano}")
     @ResponseStatus(HttpStatus.OK)
-    public Map<String, String> teste() {
-        var resposta = new HashMap<String, String>();
-        resposta.put("resposta", "Ok");
-        return resposta;
+    public BancoHoraDTO calcularBancoHoras(@PathVariable("matricula") Long matricula,
+                                           @PathVariable("mes") Integer mes,
+                                           @PathVariable("ano") Integer ano) {
+        return this.horarioService.calcularBancoHoras(matricula, mes, ano);
     }
 
 

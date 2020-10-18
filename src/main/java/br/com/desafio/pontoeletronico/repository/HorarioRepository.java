@@ -22,4 +22,8 @@ public interface HorarioRepository extends JpaRepository<Horario, Long> {
 
     List<Horario> findByMatriculaAndDataOrderByIdAsc(Long matricula, LocalDate data);
 
+    @Query("SELECT h FROM Horario h WHERE h.matricula =:matricula AND h.data BETWEEN :dataInicial AND :dataFinal")
+    List<Horario> findByMatriculaBetweenData(@Param("matricula") Long matricula,
+                                             @Param("dataInicial") LocalDate dataInicial,
+                                             @Param("dataFinal") LocalDate dataFinal);
 }
