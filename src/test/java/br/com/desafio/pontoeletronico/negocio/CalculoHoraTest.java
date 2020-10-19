@@ -33,10 +33,10 @@ class CalculoHoraTest extends AppTestComum {
     void deveCalcularOTotalTrabalhado() {
         var data = LocalDate.of(2020, 10, 15);
         var horarios = Arrays.asList(
-                            criarHorario("08:00", TipoHorarioEnum.ENTRADA, data),
-                            criarHorario("12:00", TipoHorarioEnum.SAIDA_ALMOCO, data),
-                            criarHorario("13:00", TipoHorarioEnum.RETORNO_ALMOCO, data),
-                            criarHorario("17:00", TipoHorarioEnum.SAIDA, data));
+                            criarHorario(null, "08:00", TipoHorarioEnum.ENTRADA, data),
+                            criarHorario(null, "12:00", TipoHorarioEnum.SAIDA_ALMOCO, data),
+                            criarHorario(null, "13:00", TipoHorarioEnum.RETORNO_ALMOCO, data),
+                            criarHorario(null, "17:00", TipoHorarioEnum.SAIDA, data));
         var calculo = new CalculoHora();
         var total = calculo.calcular(horarios);
         assertEquals(28800L, total);

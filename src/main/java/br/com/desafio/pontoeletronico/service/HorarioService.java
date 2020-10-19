@@ -5,26 +5,24 @@ import br.com.desafio.pontoeletronico.dominio.dto.HorarioDTO;
 import br.com.desafio.pontoeletronico.dominio.entidade.Horario;
 import br.com.desafio.pontoeletronico.negocio.CalculoHora;
 import br.com.desafio.pontoeletronico.negocio.ValidacaoHorario;
-import br.com.desafio.pontoeletronico.negocio.exceptions.ValidacaoNegocioException;
 import br.com.desafio.pontoeletronico.negocio.utils.DataUtil;
+import br.com.desafio.pontoeletronico.repository.AlocacaoHoraRepository;
 import br.com.desafio.pontoeletronico.repository.HorarioRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.Collections;
 import java.util.List;
-import java.util.OptionalInt;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Service
 public class HorarioService {
 
     private final HorarioRepository horarioRepository;
+    private final AlocacaoHoraRepository alocacaoHoraRepository;
 
-    public HorarioService(HorarioRepository horarioRepository) {
+    public HorarioService(HorarioRepository horarioRepository, AlocacaoHoraRepository alocacaoHoraRepository) {
         this.horarioRepository = horarioRepository;
+        this.alocacaoHoraRepository = alocacaoHoraRepository;
     }
 
     public HorarioDTO salvar(HorarioDTO horarioDTO) {
@@ -45,19 +43,38 @@ public class HorarioService {
 
     public HorarioDTO editar(HorarioDTO horarioDTO) {
         List<Horario> horarios = this.horarioRepository.findByMatriculaAndDataOrderByIdAsc(horarioDTO.getMatricula(), horarioDTO.getData());
-        Integer indice = IntStream.range(0, horarios.size())
-                                  .filter(it -> horarios.get(it).getId().equals(horarioDTO.getId()))
-                                  .findFirst().orElse(0);
+        Integer indice = getIndice(horarios, horarioDTO);
+        var horarioAnterior = this.extrairHorarioAnterior(horarios, indice);
+        var totalAlocadoSegundos = this.alocacaoHoraRepository.recuperarTotalAlocado(horarioDTO.getMatricula(), horarioDTO.getData()).orElse(0);
+        Horario horario = new Horario(horarioDTO.getId(), horarioDTO.getMatricula(), horarioDTO.getHora(), horarioDTO.getData(), horarioDTO.getTipoHorarioEnum());
+        var totalTrabalhadoSegundos = this.calcularSegundosTrabalhados(horarios, horario, indice);
+        var validador = new ValidacaoHorario(horarioAnterior, horarioDTO.getHora(), horarioDTO.getData(), horarioDTO.getTipoHorarioEnum());
+        validador.validar(totalAlocadoSegundos.longValue(), totalTrabalhadoSegundos);
+        return this.salvar(horario);
+    }
+
+    private Horario extrairHorarioAnterior(List<Horario> horarios, Integer indice) {
         Horario horarioAnterior = null;
         if (indice > 0) {
             horarioAnterior = horarios.get(indice - 1);
         }
-        var validador = new ValidacaoHorario(horarioAnterior, horarioDTO.getHora(), horarioDTO.getData(), horarioDTO.getTipoHorarioEnum());
 
-        validador.validar();
-        Horario horario = new Horario(horarioDTO.getId(), horarioDTO.getMatricula(), horarioDTO.getHora(), horarioDTO.getData(), horarioDTO.getTipoHorarioEnum());
-        return this.salvar(horario);
+        return horarioAnterior;
     }
+
+    private Integer getIndice(List<Horario> horarios, HorarioDTO horarioDTO) {
+        Integer indice = IntStream.range(0, horarios.size())
+                .filter(it -> horarios.get(it).getId().equals(horarioDTO.getId()))
+                .findFirst().orElse(0);
+        return indice;
+    }
+
+    private Long calcularSegundosTrabalhados(List<Horario> horarios, Horario horario, Integer indice) {
+        horarios.set(indice, horario);
+        var calculoHora = new CalculoHora();
+        return calculoHora.calcular(horarios);
+    }
+
 
     public Long calcularTotalTrabalhado(Long matricula, LocalDate data) {
         List<Horario> horarios = this.horarioRepository.findByMatriculaAndDataOrderByIdAsc(matricula, data);

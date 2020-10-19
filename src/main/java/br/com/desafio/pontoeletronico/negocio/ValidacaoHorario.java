@@ -83,4 +83,15 @@ public final class ValidacaoHorario {
         this.validarHoraAlmoco();
     }
 
+    public void validar(Long totalAlocadoSegundos, Long totalTrabalhadoSegundos) {
+        this.validar();
+        this.validarTotalTrabalhadoMaiorTotalAlocado(totalAlocadoSegundos, totalTrabalhadoSegundos);
+    }
+
+    private void validarTotalTrabalhadoMaiorTotalAlocado(Long totalAlocadoSegundos, Long totalTrabalhadoSegundos) {
+        if (totalAlocadoSegundos > totalTrabalhadoSegundos) {
+            throw new ValidacaoNegocioException("Existe um horas alocadas que ultrapassam o novo total de horas trabalhado. Favor ajustar alocação antes de editar o horário.");
+        }
+    }
+
 }

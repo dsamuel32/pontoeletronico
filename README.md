@@ -72,6 +72,54 @@ POST http://localhost:8080/pontoeletronico/v1/registro-horarios
 	"tipoHorarioEnum": "SAIDA"
 }
 ```
+### Exemplo Funcionalidade Editar Horário
+- URL
+```
+PUT http://localhost:8080/pontoeletronico/v1/registro-horarios
+```
+- Registrar Entrada
+```
+{
+    "id": 1,
+	"matricula": 1,
+	"hora": "17:00",
+	"data": "2020-10-16",
+	"tipoHorarioEnum": "ENTRADA"
+}
+```
+
+- Registrar Saída Almoço
+```
+{
+    "id": 2,
+	"matricula": 1,
+	"hora": "12:00",
+	"data": "2020-10-15",
+	"tipoHorarioEnum": "SAIDA_ALMOCO"
+}
+```
+
+- Registrar Retorno Almoço
+```
+{
+    "id": 3,
+	"matricula": 1,
+	"hora": "13:00",
+	"data": "2020-10-15",
+	"tipoHorarioEnum": "RETORNO_ALMOCO"
+}
+```
+
+- Registrar Saída
+```
+{
+    "id": 4,
+	"matricula": 1,
+	"hora": "17:00",
+	"data": "2020-10-15",
+	"tipoHorarioEnum": "SAIDA"
+}
+```
 
 ### Exemplo Funcionalidade Alocar Hora
 - URL
