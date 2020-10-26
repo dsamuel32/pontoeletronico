@@ -1,4 +1,4 @@
-# Ponto Eletrônico teste
+# Ponto Eletrônico
 
 #### Tecnologias Utilizadas
 - Spring Boot
