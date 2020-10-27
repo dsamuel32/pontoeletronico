@@ -16,6 +16,12 @@ pipeline {
                 sh './gradlew test'
             }
         }
+		
+		stage('Sonar') {
+            steps {
+                sh './gradlew sonarqube'
+            }
+        }
 
         stage('Build') {
             steps {
