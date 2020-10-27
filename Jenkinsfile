@@ -6,6 +6,7 @@ pipeline {
     stages {
         stage('Config Java') {
             steps {
+                sh 'chmod 755 ./gradlew'
                 sh 'export JAVA_HOME=/var/jenkins_home/bibliotecas/jdk15/'
                 sh 'PATH=$JAVA_HOME/bin:$PATH'
             }
