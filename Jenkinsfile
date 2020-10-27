@@ -5,6 +5,12 @@ pipeline {
 
     stages {
         
+        stage('Preparando Ambiente') {
+            steps {
+                sh 'chmod 775 ./gradlew'
+            }
+        }
+        
         stage('Test') {
             steps {
                 sh './gradlew test'
