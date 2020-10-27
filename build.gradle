@@ -1,7 +1,16 @@
+buildscript {
+	ext {
+		jacocoDestinationFile = "$buildDir/jacoco/jacoco.xml"
+		ojdbc6Version = '11.2.0.4.0'
+	}
+}
+
 plugins {
 	id 'org.springframework.boot' version '2.3.4.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
 	id 'java'
+	id 'org.sonarqube' version '2.7'
+	id 'jacoco'
 }
 
 group = 'br.com.desafio'
@@ -34,6 +43,37 @@ dependencies {
 
 }
 
-test {
-	useJUnitPlatform()
+jacoco {
+	toolVersion = '0.8.5'
 }
+
+jacocoTestReport {
+	reports {
+		xml.enabled true
+		html.enabled true
+		csv.enabled true
+		xml.destination file(jacocoDestinationFile)
+	}
+}
+
+sonarqube {
+	properties {
+		property 'sonar.projectName', 'Ponto Eletronico'
+		property 'sonar.projectKey', 'br.com.desafio:pontoeletronico'
+		property 'sonar.host.url', 'http://sonarqube:9000'
+		property 'sonar.login', '9776918d73f31af71682a03d63489a133882d987'
+		property 'sonar.java.coveragePlugin', 'jacoco'
+		property 'sonar.coverage.jacoco.xmlReportPaths', jacocoDestinationFile
+		property 'sonar.exclusions', '**/*App.java'
+	}
+}
+
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+
