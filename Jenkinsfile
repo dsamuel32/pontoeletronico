@@ -4,26 +4,28 @@ pipeline {
     agent any
 
     stages {
-        stage('Config Java') {
-            steps {
-                sh 'chmod 755 ./gradlew'
-                sh 'export JAVA_HOME=/var/jenkins_home/bibliotecas/jdk15/'
-                sh 'PATH=$JAVA_HOME/bin:$PATH'
-            }
-        }
         
-        stage('test') {
+        stage('Test') {
             steps {
                 sh './gradlew test'
             }
         }
 
-        stage('build') {
+        stage('Build') {
             steps {
                 sh './gradlew build'
             }
         }
+        
+        stage('Deploy Produção') {
+            steps {
+                script {
+                    timeout(time: 10, unit: 'MINUTES') {
+                        input(id: "Deploy Gate", message: "Deploy em produção?", ok: 'Deploy')
+                    }
+               }
+            }
+        }
 
     }
-
 }
