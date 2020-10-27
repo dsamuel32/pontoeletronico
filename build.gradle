@@ -61,6 +61,7 @@ sonarqube {
 		property 'sonar.projectName', 'Ponto Eletronico'
 		property 'sonar.projectKey', 'br.com.desafio:pontoeletronico'
 		property 'sonar.host.url', 'http://sonarqube:9000'
+		property 'sonar.scm.provider', 'git'
 		property 'sonar.login', '9776918d73f31af71682a03d63489a133882d987'
 		property 'sonar.java.coveragePlugin', 'jacoco'
 		property 'sonar.coverage.jacoco.xmlReportPaths', jacocoDestinationFile
