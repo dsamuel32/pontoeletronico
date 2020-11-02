@@ -50,20 +50,23 @@ jacoco {
 jacocoTestReport {
 	reports {
 		xml.enabled true
-		html.enabled true
-		csv.enabled true
-		xml.destination file(jacocoDestinationFile)
+		//html.enabled true
+		//csv.enabled true
+		//xml.destination file(jacocoDestinationFile)
 	}
 }
+
+test.finalizedBy jacocoTestReport
 
 sonarqube {
 	properties {
 		property 'sonar.projectName', 'Ponto Eletronico'
 		property 'sonar.projectKey', 'br.com.desafio:pontoeletronico'
-		property 'sonar.host.url', 'http://localhost:9000'
-		property 'sonar.login', '9776918d73f31af71682a03d63489a133882d987'
+		property 'sonar.host.url', 'http://sonarqube:9000'
+		property 'sonar.login', '116fdcd10cce448f25fe37f186253c3973007054'
 		//property 'sonar.java.coveragePlugin', 'jacoco'
-		property 'sonar.coverage.jacoco.xmlReportPaths', "${buildDir}/build/reports/jacoco/codeCoverageReport/codeCoverageReport.xml"
+		//property 'sonar.coverage.jacoco.xmlReportPaths', "${buildDir}/jacoco/"
+		//property "sonar.junit.reportsPaths", "$buildDir/reports/jacoco/test/"
 		property 'sonar.exclusions', '**/*App.java'
 	}
 }
@@ -77,5 +80,6 @@ test {
 }
 
 tasks['sonarqube'].dependsOn test
+
 
 
