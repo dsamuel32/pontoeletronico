@@ -1,7 +1,7 @@
 buildscript {
 	ext {
 		jacocoDestinationFile = "$buildDir/jacoco/jacoco.xml"
-		ojdbc6Version = '11.2.0.4.0'
+		//ojdbc6Version = '11.2.0.4.0'
 	}
 }
 
@@ -9,7 +9,7 @@ plugins {
 	id 'org.springframework.boot' version '2.3.4.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
 	id 'java'
-	id 'org.sonarqube' version '2.7'
+	id 'org.sonarqube' version '3.0'
 	id 'jacoco'
 }
 
@@ -60,11 +60,10 @@ sonarqube {
 	properties {
 		property 'sonar.projectName', 'Ponto Eletronico'
 		property 'sonar.projectKey', 'br.com.desafio:pontoeletronico'
-		property 'sonar.host.url', 'http://sonarqube:9000'
-		property 'sonar.scm.provider', 'git'
+		property 'sonar.host.url', 'http://localhost:9000'
 		property 'sonar.login', '9776918d73f31af71682a03d63489a133882d987'
-		property 'sonar.java.coveragePlugin', 'jacoco'
-		property 'sonar.coverage.jacoco.xmlReportPaths', jacocoDestinationFile
+		//property 'sonar.java.coveragePlugin', 'jacoco'
+		property 'sonar.coverage.jacoco.xmlReportPaths', "${buildDir}/build/reports/jacoco/codeCoverageReport/codeCoverageReport.xml"
 		property 'sonar.exclusions', '**/*App.java'
 	}
 }
@@ -76,5 +75,7 @@ test {
         events "passed", "skipped", "failed"
     }
 }
+
+tasks['sonarqube'].dependsOn test
 
 

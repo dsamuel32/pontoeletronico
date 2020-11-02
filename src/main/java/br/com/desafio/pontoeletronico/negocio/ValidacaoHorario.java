@@ -9,7 +9,6 @@ import br.com.desafio.pontoeletronico.negocio.utils.HoraUtil;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 public final class ValidacaoHorario {
 
@@ -60,7 +59,7 @@ public final class ValidacaoHorario {
     }
 
     private Boolean isHorarioNaoNulo() {
-        return !Objects.isNull(this.horarioAnterior);
+        return this.horarioAnterior != null;
     }
 
     private void validarHoraAlmoco() {
